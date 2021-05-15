@@ -8,32 +8,83 @@
 <title>Home</title>
 <link rel="stylesheet" href="../../resources/style.css">
 </head>
-<body>
-<div class="Face">
-	<div class="ProfileIcon">
-			<div class="borderImage" style="background-image: url(//opgg-static.akamaized.net/images/borders2/gold.png);"></div>
-			<img src="//opgg-static.akamaized.net/images/profile_icons/profileIcon539.jpg?image=q_auto:best&amp;v=1518361200" class="ProfileImage">
-	<span class="Level tip" title="레벨">${result.getSummonerLevel}</span>
-	</div>
-</div>
-
-<div class="Profile">
-	<div class="Information">
-				<span class="Name">${result.getName}</span>
-		<a class="FavoriteButton" href="#" id="FavoriteButton" onclick="$.OP.GG.common.SummonerHistory.Favorite.toggle(${result.getName}); return false;">
-			<span class="deactive __spSite __spSite-101" style=""></span>
-			<span class="active __spSite __spSite-102" style="display: none;"></span>
-			즐겨찾기		</a>
-
-		<div class="Rank">
-		<div class="LadderRank">
-			<a href="/ranking/ladder/summonerName=TUBASB" class="tip Link tpd-delegation-uid-1" title="" target="_blank">
-				래더 랭킹 <span class="ranking">1</span>위 (상위 100%)
-			</a>
-		</div>
-		</div>
+<style>
+	.header{
+		border: solid blue;
+		width: 1080px;
+		height: 100%px;
+		font-family: Helvetica,"Malgun Gothic","Apple SD Gothic Neo",AppleGothic,Dotum,Arial,Tahoma;
 		
-</div>
+		
+	}
+	/* 이미지 프로필 영역 시작 */
+	.IconLayout{
+		float: left;
+		width: 180px;
+		height: 180px;
+		border: solid red;	
+		
+		display:flex;
+		justify-content: center;
+		align-items: center; 
+	}
+	.summonerIcon{
+		position:relative;
+		width: calc(100% - 60px);
+		height: calc(100% - 60px);
+	}
+	.level{
+		margin-top: 120px;
+		position:absolute;	
+		display:block;
+		color:#eabd56;
+		text-align: center;
+		width: 44px;
+    	height: 24px;
+		background: url("/resources/bg-levelbox.png");
+	}
+	/* 이미지 프로필 영역 끝 */
+	
+	.profile > .name{ 
+		margin-top: 40px;
+		border: solid purple;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.profile > .rank{
+		font-size : 11px;
+		color : #555e5e;
+	}
+	
+	
+</style>
+<body>
+	<div class="data">
+		<div>AccountId : ${SummonerDTO.accountId}</div>
+		<!-- https://ddragon.leagueoflegends.com/api/versions.json 버전 리스트 -->
+		<div>profileIconId : ${SummonerDTO.profileIconId}</div>
+		<div>revisionDate : ${SummonerDTO.revisionDate}</div>
+		<div>name : ${SummonerDTO.name}</div>
+		<div>id : ${SummonerDTO.id}</div>
+		<div>puuid : ${SummonerDTO.puuid}</div>
+		<div>summonerLevel : ${SummonerDTO.summonerLevel}</div>
+	</div>
+	<hr>
+	<div class="header">
+		<div class="IconLayout">
+			<img class="summonerIcon" src="http://ddragon.leagueoflegends.com/cdn/11.10.1/img/profileicon/${SummonerDTO.profileIconId}.png">
+			<span class="level">${SummonerDTO.summonerLevel}</span>
+		</div>
+		<div class="profile">
+			<div class="name">
+				<span>${SummonerDTO.name}</span>
+			</div>
+			<div class="rank">
+				<span>랭킹 100위 (상위 : 0.01%)</span>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
