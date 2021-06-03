@@ -60,9 +60,9 @@
 .panel{
 	border: solid red;
 	position:relative;
-	margin-left:180px;
+	margin-left:200px;
 	margin-bottom:50px;
-	width:200px;
+	width:220px;
 	background: #F2F2F2;
 	text-align: left;
 }
@@ -86,7 +86,7 @@
 </style>
 <script type="text/javascript">
 	
-	window.onload = function LeagueEntryDTO() {
+	window.onload = function loadData() {
 		fetch('/tier',{
 		      headers : { 
 		          'Content-Type': 'application/json',
@@ -95,10 +95,10 @@
 		        })
 		        .then(response => response.json())
 		        .then(data => {
-		        	console.log(data);
+		        	//console.log(data);
 		        	//soleRank
 		        	document.getElementById('solotier').innerHTML=data[0].tier;
-// 		        	document.getElementById('solotier').
+ 		        	document.getElementById('solotierRank').innerHTML=data[0].rank;
 		        	document.getElementById('sololeaguePoint').innerHTML=data[0].leaguePoints + ' LP';
 		        	document.getElementById('solowins').innerHTML=data[0].wins + '승';
 		        	document.getElementById('sololosses').innerHTML=data[0].losses + '패';
@@ -107,14 +107,47 @@
 		        	
 		        	//flexRank
 		        	document.getElementById('flextier').innerHTML=data[1].tier;
+		        	document.getElementById('flextierRank').innerHTML=data[1].rank;
 		        	document.getElementById('flexleaguePoint').innerHTML=data[1].leaguePoints + 'LP';
 		        	document.getElementById('flexwins').innerHTML=data[1].wins + '승';
 		        	document.getElementById('flexlosses').innerHTML=data[1].losses + '패';
 		        	document.getElementById('flexwinrate').innerHTML='승률 ' + (data[1].wins / (data[1].losses+data[1].wins) * 100).toFixed(2) + '%';
 		        });
 		
+		
+			fetch('/ids',{
+			      headers : { 
+			          'Content-Type': 'application/json',
+			          'Accept': 'application/json'
+			         }
+			        })
+			        .then(response => response.json())
+			        .then(data => {
+			        	console.log(data);
+			        });
+			
+			fetch('/champma',{
+			      headers : { 
+			          'Content-Type': 'application/json',
+			          'Accept': 'application/json'
+			         }
+			        })
+			        .then(response => response.json())
+			        .then(data => {
+			        	//console.log(data);
+			        	let cnt = 0;
+			        	for(value of data){
+			        		if(cnt < 7){
+			        			console.log(value);
+			        			console.log(value.championId);
+			        		}else{
+			        			
+			        		}
+							cnt ++;
+			        	}
+			        });
 	}
-
+	
 </script>
 <body>
 	<div class="data">
@@ -143,7 +176,8 @@
 				<div class="panel">
 					<div class="solorank">
 						<p>솔로랭크</p>
-						<p id='solotier'></p>
+						<span id='solotier'></span> 
+						<span id = 'solotierRank'></span>
 						<span id='sololeaguePoint'></span> <span id='solowins'></span> <span
 							id='sololosses'></span>
 						<span id='solowinrate' class='winrate'></span>
@@ -152,13 +186,18 @@
 				<div class="panel">
 					<div class="flexrank">
 						<p>자유 5:5 랭크</p>
-						<p id='flextier'></p>
+						<span id='flextier'></span>
+						<span id='flextierRank'></span>
 						<span id='flexleaguePoint'></span> <span id='flexwins'></span> <span
 							id='flexlosses'></span>
 						<span id='flexwinrate' class='winrate'></span>
 					</div>
 				</div>
 			</div>
+		</div>
+		<hr>
+		<div class="mostChampion">
+			<img src="">
 		</div>
 	</div>
 </body>

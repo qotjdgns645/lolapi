@@ -1,6 +1,8 @@
 package com.mycom.myapp;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -86,5 +88,38 @@ public class HomeController {
 		
 		return leagueEntryDTO.getBody();
 	}
+	////
+	@RequestMapping(value = "/ids", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public String ids(Map<String, String> map, HttpSession session, HttpServletRequest request) {
+		RIOTAPICaller api = new RIOTAPICaller();
+		
+		SummonerDTO summonerDTO = (SummonerDTO) session.getAttribute("SummonerDTO");
+		
+		String Puuid = summonerDTO.getPuuid();
+		
+		logger.info("puuid : " + Puuid);
+		
+		ResponseEntity<String> list = api.getMatch(Puuid);
+		
+		logger.info("ids : " + list.getBody());
+		
+		return list.getBody();
+	}
 	
+	@RequestMapping(value = "/champma", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public String champma(ModelAndView mav, HttpSession session, HttpServletRequest request) {
+		RIOTAPICaller api = new RIOTAPICaller();
+		
+		SummonerDTO summonerDTO = (SummonerDTO) session.getAttribute("SummonerDTO");
+		
+		ResponseEntity<String> championmasterydto = api.getChamp(summonerDTO.getId());
+		
+		championmasterydto.getBody();
+		
+		logger.info("mastery : " + championmasterydto.getBody());
+		
+		return championmasterydto.getBody();
+	}
 }

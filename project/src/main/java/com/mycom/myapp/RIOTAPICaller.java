@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 public class RIOTAPICaller {
 
 	private RestTemplate restTemplate;
-	private String APIKEY = "RGAPI-d14c645f-439a-453f-b272-21daf189c2a3";
+	private String APIKEY = "RGAPI-056c2b66-9ce6-4465-bc44-cb6081900417";
 	
 	final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
@@ -42,7 +42,6 @@ public class RIOTAPICaller {
 		}
 
 		HttpEntity entity = new MakeEntity().makeEntity();
-		SummonerDTO userInfo = (SummonerDTO) entity.getBody();
 		ResponseEntity<SummonerDTO> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, SummonerDTO.class);
 		
 
@@ -62,10 +61,45 @@ public class RIOTAPICaller {
 			e.printStackTrace();
 		}
 		HttpEntity entity = new MakeEntity().makeEntity();
-		String tier = (String) entity.getBody();
 		ResponseEntity<String> responseEntity = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);
 		
 		logger.info(responseEntity.getBody());
+		
+		return responseEntity;
+	}
+	public ResponseEntity<String> getMatch(String puuid){
+		String reqUrl = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=10&api_key=" + APIKEY;
+		
+		logger.info("requrl : " + reqUrl);
+		
+		URI url = null;
+		try {
+			url = new URI(reqUrl);
+			
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		HttpEntity entity = new MakeEntity().makeEntity();
+		
+		ResponseEntity<String> responseEntity = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);
+		
+		return responseEntity;
+	}
+	public ResponseEntity<String> getChamp(String encryptedSummonerId){
+		String reqUrl = "https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedSummonerId + "?api_key=" + APIKEY;
+		
+		logger.info("champrequrl : " + reqUrl);
+		
+		URI url = null;
+		try {
+			url = new URI(reqUrl);
+			
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		HttpEntity entity = new MakeEntity().makeEntity();
+		ResponseEntity<String> responseEntity = restTemplate.exchange(reqUrl, HttpMethod.GET, entity, String.class);
 		
 		return responseEntity;
 	}

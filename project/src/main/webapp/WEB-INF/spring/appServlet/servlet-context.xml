@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.mycom.myapp" />
-	<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+	<!-- <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" /> -->
 	
 	
 </beans:beans>
