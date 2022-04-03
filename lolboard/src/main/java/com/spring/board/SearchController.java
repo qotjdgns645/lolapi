@@ -15,6 +15,7 @@ public class SearchController {
 	
 	final static String API_KEY = "RGAPI-aea90361-4eae-41ef-8d2e-3e3cee29a555";
 	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String search() throws Exception{
 		return "search";
@@ -29,4 +30,5 @@ public class SearchController {
 		
 		return "summoner";
 	}
+	
 }
