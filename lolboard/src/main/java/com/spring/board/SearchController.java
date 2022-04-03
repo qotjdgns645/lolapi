@@ -26,6 +26,7 @@ public class SearchController {
 		String SummonerName = httpServletRequest.getParameter("title");
 		//Summoner temp= null;
 		
+		
 		return "summoner";
 	}
 }
