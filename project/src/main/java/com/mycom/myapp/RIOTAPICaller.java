@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 public class RIOTAPICaller {
 
 	private RestTemplate restTemplate;
-	private String APIKEY = "RGAPI-056c2b66-9ce6-4465-bc44-cb6081900417";
+	private String APIKEY = "RGAPI-aea90361-4eae-41ef-8d2e-3e3cee29a555";
 	
 	final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired

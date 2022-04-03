@@ -126,7 +126,33 @@
 			        	console.log(data);
 			        });
 			
-			fetch('/champma',{
+			imageSearch();	
+			/* fetch('https://ddragon.leagueoflegends.com/cdn/10.6.1/data/ko_KR/champion.json')
+			.then(res => res.json())
+			.then(result => {
+				//console.log(result.data);
+				//console.log(result.data['53']);
+				let list = JSON.stringify(result.data);
+				console.log(list); //여기문제 undefine
+				let chapionList = list;
+				console.log(chapionList);
+				
+				for(i in chapionList){
+					if(chapionList[i].key == id){
+						console.log(chapionList[i].id)
+					}
+				}
+			}); */
+			
+	}
+	
+
+	
+	function imageSearch(){
+		//이미지 표시를 위한과정 (모스트)
+		// 1. 모스트 챔프 id 리스트 값 얻기
+		let array = new Array(); 
+		fetch('/champma',{
 			      headers : { 
 			          'Content-Type': 'application/json',
 			          'Accept': 'application/json'
@@ -134,20 +160,64 @@
 			        })
 			        .then(response => response.json())
 			        .then(data => {
-			        	//console.log(data);
 			        	let cnt = 0;
+						
 			        	for(value of data){
 			        		if(cnt < 7){
-			        			console.log(value);
-			        			console.log(value.championId);
+			        			id = value.championId;
+			        			array.push(id);
 			        		}else{
 			        			
 			        		}
 							cnt ++;
 			        	}
-			        });
+			        	/**/
+			        	let champname = "";
+			        
+			    		fetch('https://ddragon.leagueoflegends.com/cdn/11.10.1/data/ko_KR/champion.json')
+			    		.then(res => res.json())
+			    		.then(result => {
+			    			cnt = 0;
+			    			data = result.data;
+			    			
+			    			text = "";
+			    			for( j in array){
+			    				console.log(array[j]);
+			    				for ( i in data)
+				    			{
+				    				if(array[j] == data[i]['key']){
+				    					champname = i;
+				    					console.log("검색 된 챔피언 이름은 : " + champname + " 입니다");
+				    					text += "<img src =" + "https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/"+ champname +".png>";
+				    				}
+				    			}
+			    			}document.getElementById('mostChampion').innerHTML = text;
+			    		});
+			        	
+			});
 	}
 	
+	
+	/* function getName(callback){
+		let champname = "";
+		
+		console.log("검색할 챔피언 ID 값 : " + champid);
+		
+		fetch('https://ddragon.leagueoflegends.com/cdn/10.6.1/data/ko_KR/champion.json')
+		.then(res => res.json())
+		.then(result => {
+			cnt = 0;
+			data = result.data;
+			for ( i in data)
+			{
+				if(champid == data[i]['key']){
+					champname = i;
+					console.log("검색 된 챔피언 이름은 : " + champname + " 입니다");
+					callback(champname);
+				}
+			}
+		});
+	}	 */
 </script>
 <body>
 	<div class="data">
@@ -196,8 +266,8 @@
 			</div>
 		</div>
 		<hr>
-		<div class="mostChampion">
-			<img src="">
+		<div id="mostChampion">
+			
 		</div>
 	</div>
 </body>
